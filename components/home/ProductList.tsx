@@ -13,7 +13,7 @@ export default function ProductList() {
   isError && <p>{error.message}</p>;
 
   return (
-    <div className="grid grid-cols-4 gap-8 justify-items-center">
+    <div className="grid grid-cols-4 gap-8">
       {data?.map((product: Product) => (
         <ProductItem key={product.id} product={product} />
       ))}

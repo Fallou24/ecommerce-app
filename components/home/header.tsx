@@ -14,11 +14,19 @@ export default function Header() {
       </div>
       <div className="flex items-center gap-8">
         <form className="border  border-gray-300 flex flex-row items-center p-2 rounded-md">
-          <input type="search" placeholder="Rechechez des produits" className="text-sm w-64" />
+          <input
+            type="search"
+            placeholder="Rechechez des produits"
+            className="text-sm w-64"
+          />
           <Search size={20} color="#979797" />
         </form>
-        <User />
-        <ShoppingBag />
+        <Link href="/login">
+          <User />
+        </Link>
+        <Link href="/cart">
+          <ShoppingBag />
+        </Link>
       </div>
     </header>
   );
