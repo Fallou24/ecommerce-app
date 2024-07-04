@@ -14,6 +14,7 @@ export default function SingleProduct() {
   });
   isPending && <p>Chargement</p>;
   isError && <p>Erreur</p>;
+  
   return (
     <main className="max-w-screen-2xl p-4 ">
       <div className="flex flex-row items-center">
