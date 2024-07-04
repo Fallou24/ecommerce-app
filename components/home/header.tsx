@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="max-w-screen-xl mx-auto flex flex-row justify-between items-center bg-white p-4">
+    <header className="max-w-screen-xl mx-auto flex flex-row justify-between items-center bg-white p-4 sticky top-0 z-20">
       <div className="flex items-center gap-8">
         <Link href="/" className="font-bold text-2xl">
           Store
