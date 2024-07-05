@@ -3,27 +3,21 @@ import {
   getProductOfACategory,
   getProducts,
 } from "@/services/queries";
+import { useCategoryStore } from "@/stores/categoryStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Search, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Header() {
-  const queryClient = useQueryClient();
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const selectCategory = useCategoryStore((state) => state.selectedACategory);
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["categories"],
     queryFn: getAllCategories,
   });
   isPending && <p>Chargement ...</p>;
   isError && <p>{error.message}</p>;
-  const { data: products, isPending: isLoading } = useQuery({
-    queryKey: ["products", selectedCategory],
-    queryFn: () => getProductOfACategory(selectedCategory),
-    enabled: Boolean(selectedCategory),
-  });
-  isLoading && <p>Chargement ...</p>;
-  console.log(products, selectedCategory);
+
   const categories = data && ["All", ...data];
 
   return (
@@ -36,7 +30,7 @@ export default function Header() {
           <button
             key={index}
             onClick={() => {
-              setSelectedCategory(category === "All" ? "" : category);
+              selectCategory(category === "All" ? "" : category);
             }}
           >
             {category}
