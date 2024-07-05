@@ -7,7 +7,7 @@ import { Product } from "@/services/types";
 export default function ProductList() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["products"],
-    queryFn: getProducts,
+    queryFn: () => getProducts(),
   });
   isPending && <p>Chargement ...</p>;
   isError && <p>{error.message}</p>;

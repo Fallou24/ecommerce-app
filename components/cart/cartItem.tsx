@@ -43,8 +43,9 @@ export default function CartItem() {
               </Card>
               <div>
                 <p className="font-medium mb-1">Sac à dos</p>
-                <p className="mb-1">Catégorie 1</p>
-                <p>Quantité : 4</p>
+              
+                <p className="mb-1">Quantité : 4</p>
+                <button className="underline">Supprimer</button>
               </div>
             </div>
           </TableCell>

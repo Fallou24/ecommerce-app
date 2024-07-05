@@ -6,8 +6,20 @@ export async function getProducts(): Promise<Product[] | []> {
     .then((json) => json);
 }
 
-export async function getSingleProduct(productId: string):Promise<Product > {
+export async function getSingleProduct(productId: string): Promise<Product> {
   return fetch("https://fakestoreapi.com/products/" + productId)
+    .then((res) => res.json())
+    .then((json) => json);
+}
+
+export async function getAllCategories():Promise<string[]> {
+  return fetch("https://fakestoreapi.com/products/categories")
+    .then((res) => res.json())
+    .then((json) => json);
+}
+
+export async function getProductOfACategory(category: string) {
+  return fetch("https://fakestoreapi.com/products/category/"+category)
     .then((res) => res.json())
     .then((json) => json);
 }
