@@ -3,14 +3,15 @@ import {
   getProductOfACategory,
   getProducts,
 } from "@/services/queries";
-import { useCategoryStore } from "@/stores/categoryStore";
+import { useProductsStore } from "@/stores/productsStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Search, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Header() {
-  const selectCategory = useCategoryStore((state) => state.selectedACategory);
+  const selectCategory = useProductsStore((state) => state.selectedACategory);
+  const setSearchTerm = useProductsStore((state) => state.setSearchTerm);
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["categories"],
     queryFn: getAllCategories,
@@ -38,11 +39,12 @@ export default function Header() {
         ))}
       </div>
       <div className="flex items-center gap-8">
-        <form className="border  border-gray-300 flex flex-row items-center p-2 rounded-md">
+        <form className="border  border-gray-300 flex flex-row items-center px-2 rounded-md">
           <input
             type="search"
             placeholder="Rechechez des produits"
-            className="text-sm w-64"
+            className="text-sm w-64 py-2"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Search size={20} color="#979797" />
         </form>
