@@ -1,8 +1,3 @@
-import {
-  getAllCategories,
-  getProductOfACategory,
-  getProducts,
-} from "@/services/queries";
 import { useProductsStore } from "@/stores/productsStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Search, ShoppingBag, User } from "lucide-react";
@@ -12,14 +7,14 @@ import React, { useState } from "react";
 export default function Header() {
   const selectCategory = useProductsStore((state) => state.selectedACategory);
   const setSearchTerm = useProductsStore((state) => state.setSearchTerm);
-  const { data, isPending, isError, error } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getAllCategories,
-  });
-  isPending && <p>Chargement ...</p>;
-  isError && <p>{error.message}</p>;
 
-  const categories = data && ["All", ...data];
+  const categories = [
+    "All",
+    "electronics",
+    "jewelery",
+    "men's clothing",
+    "women's clothing",
+  ];
 
   return (
     <header className="max-w-screen-xl mx-auto flex flex-row justify-between items-center bg-white p-4 sticky top-0 z-20">
