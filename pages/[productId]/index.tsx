@@ -1,5 +1,6 @@
+import { createCart } from "@/services/mutations";
 import { getSingleProduct } from "@/services/queries";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -14,7 +15,27 @@ export default function SingleProduct() {
   });
   isPending && <p>Chargement</p>;
   isError && <p>Erreur</p>;
-  
+  const {
+    mutate,
+    isPending: isloading,
+    data: cartData,
+  } = useMutation({
+    mutationFn: (data: any) => createCart(data),
+  });
+
+  function handleAddToCart() {
+    const data = {
+      userId: 5,
+      date: new Date(),
+      products: [
+        { productId: 5, quantity: 1 },
+        { productId: 1, quantity: 5 },
+      ],
+    };
+    mutate(data);
+  }
+  console.log(cartData);
+
   return (
     <main className="max-w-screen-2xl p-4 ">
       <div className="flex flex-row items-center">
@@ -45,7 +66,10 @@ export default function SingleProduct() {
               <Plus size={15} absoluteStrokeWidth />
             </button>
           </p>
-          <button className="bg-black opacity-70 p-3 rounded text-white cursor-pointer">
+          <button
+            onClick={handleAddToCart}
+            className="bg-black opacity-70 p-3 rounded text-white cursor-pointer"
+          >
             Add to cart
           </button>
         </div>
