@@ -20,7 +20,7 @@ model Product {
   description String
   category    String
   image       String
-  rating      String
+  rating      Json
 
   @@map("products")
 }

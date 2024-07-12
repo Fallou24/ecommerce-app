@@ -1,13 +1,23 @@
+import { useProductsStore } from "@/stores/productsStore";
 import { Product } from "@prisma/client";
 import axios from "axios";
 
-export async function getProducts(selectedCategory: string) {
-  const data = await axios.get("http://localhost:3000/api/products");
-  const products: Product[] = data.data;
-  const productsOfCategory = products.filter(
-    (p) => p.category === selectedCategory
+export async function getProducts(
+  selectedCategory: string,
+  page: number,
+  searchTerm: string
+) {
+  const data = await axios.get(
+    searchTerm
+      ? "http://localhost:3000/api/products?page=" +
+          page +
+          "&search=" +
+          searchTerm
+      : "http://localhost:3000/api/products?page=" + page
   );
-  return selectedCategory ? productsOfCategory : products;
+  const products: { products: Product[]; totalPages: number } = data.data;
+
+  return products;
 }
 
 export async function getSingleProduct(productId: string): Promise<Product> {

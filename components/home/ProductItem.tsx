@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { Card, CardContent } from "../ui/card";
-import { Rating } from "@/lib/types";
 import { Product } from "@prisma/client";
 
 export default function ProductItem({ product }: { product: Product }) {
