@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { loginUser } from "@/services/mutations";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import React from "react";
@@ -17,14 +16,9 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<Types>();
-  const { mutate, data } = useMutation({
-    mutationFn: (data: Types) => loginUser(data),
-  });
-  const onSubmit: SubmitHandler<Types> = (data) => {
-    mutate(data);
-  };
- console.log(data);
- 
+
+  const onSubmit: SubmitHandler<Types> = (data) => {};
+
   return (
     <main>
       <div className="shadow-md w-1/3  p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
