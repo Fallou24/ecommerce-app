@@ -1,4 +1,8 @@
-import { getProducts, getSingleProduct } from "@/lib/queries";
+import {
+  getProducts,
+  getProductsOfACategory,
+  getSingleProduct,
+} from "@/lib/queries";
 import { useProductsStore } from "@/stores/productsStore";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
@@ -8,7 +12,7 @@ export function useProducts(page: number) {
   const { isPending, isError, data, error, isPlaceholderData, isFetching } =
     useQuery({
       queryKey: ["products", { page, searchTerm }],
-      queryFn: () => getProducts(selectedCategory, page, searchTerm),
+      queryFn: () => getProducts(page, searchTerm),
       placeholderData: keepPreviousData,
     });
 
@@ -21,4 +25,14 @@ export function useSingleProduct(productId: string) {
     queryFn: () => getSingleProduct(String(productId)),
   });
   return { data, isPending, isError };
+}
+
+export function useProductsOfACategory(page: number) {
+  const selectedCategory = useProductsStore((state) => state.selectedCategory);
+  const searchTerm = useProductsStore((state) => state.searchTerm);
+  return useQuery({
+    queryKey: ["products", { page, searchTerm, selectedCategory }],
+    queryFn: () => getProductsOfACategory(selectedCategory, page, searchTerm),
+    placeholderData: keepPreviousData,
+  });
 }
