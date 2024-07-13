@@ -75,7 +75,7 @@ export default function Register() {
               {errors.password.message}
             </p>
           )}
-          <Button className="bg-black text-white">Login</Button>
+          <Button className="bg-black text-white">S'inscrire</Button>
         </form>
         {message && <p className="text-red-700 text-sm mb-2 mt-2">{message}</p>}
         <p className="mt-4">

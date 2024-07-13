@@ -1,23 +1,29 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useCurrentUser } from "@/hooks/useUser";
 import { useMutation } from "@tanstack/react-query";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type Types = {
-  username: string;
+  email: string;
   password: string;
 };
 
 export default function Login() {
+  
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Types>();
 
-  const onSubmit: SubmitHandler<Types> = (data) => {};
+  const onSubmit: SubmitHandler<Types> = async (data) => {
+    await signIn("credentials", data);
+  };
 
   return (
     <main>
@@ -30,14 +36,12 @@ export default function Login() {
             type="text"
             placeholder="Nom d'utilisateur"
             className="mb-5"
-            {...register("username", {
-              required: "Le nom d'utilisateur est requis",
+            {...register("email", {
+              required: "L'email est requis",
             })}
           />
-          {errors.username && (
-            <p className="text-red-700 text-sm mb-2">
-              {errors.username.message}
-            </p>
+          {errors.email && (
+            <p className="text-red-700 text-sm mb-2">{errors.email.message}</p>
           )}
 
           <Input
@@ -57,7 +61,7 @@ export default function Login() {
               {errors.password.message}
             </p>
           )}
-          <Button className="bg-black text-white">Login</Button>
+          <Button className="bg-black text-white">Se connecter</Button>
         </form>
         <p className="mt-4">
           Vous n'avez pas de compte{" "}
