@@ -1,12 +1,12 @@
 import { useProductsStore } from "@/stores/productsStore";
-import { CartItem, Product } from "@prisma/client";
+import { Cart, CartItem, Product } from "@prisma/client";
 import axios from "axios";
 
 export async function getProducts(page: number, searchTerm: string) {
   const data = await axios.get(
     searchTerm
-      ? process.env.BASE_URL+"api/products?page=" + page + "&search=" + searchTerm
-      : process.env.BASE_URL+"api/products?page=" + page
+      ? "api/products?page=" + page + "&search=" + searchTerm
+      : "api/products?page=" + page
   );
   const products: { products: Product[]; totalPages: number } = data.data;
 
@@ -14,7 +14,7 @@ export async function getProducts(page: number, searchTerm: string) {
 }
 
 export async function getSingleProduct(productId: string): Promise<Product> {
-  const product = await axios.get(process.env.BASE_URL+"api/products/" + productId);
+  const product = await axios.get("api/products/" + productId);
   return product.data;
 }
 
@@ -25,13 +25,13 @@ export async function getProductsOfACategory(
 ) {
   const data = await axios.get(
     searchTerm
-      ? process.env.BASE_URL+"api/products/category/" +
+      ? "api/products/category/" +
           selectedCategory +
           "?page=" +
           page +
           "&search=" +
           searchTerm
-      : process.env.BASE_URL+"api/products/category/" + selectedCategory + "?page=" + page
+      : "api/products/category/" + selectedCategory + "?page=" + page
   );
   const products: { products: Product[]; totalPages: number } = data.data;
 
@@ -39,10 +39,11 @@ export async function getProductsOfACategory(
 }
 
 interface cartItemType extends CartItem {
-  product: Product;
+  products: Product;
 }
 
-export async function getUserCart(userId: string): Promise<cartItemType[]> {
-  const res = await axios.get(process.env.BASE_URL+"api/cart?userId=" + userId);
+
+export async function getUserCart(userId: string):Promise<Cart> {
+  const res = await axios.get("api/cart?userId=" + userId);
   return res.data;
 }
