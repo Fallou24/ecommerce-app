@@ -23,6 +23,7 @@ export function useSingleProduct(productId: string) {
   const { isPending, isError, data } = useQuery({
     queryKey: ["products", productId],
     queryFn: () => getSingleProduct(String(productId)),
+    enabled: Boolean(productId),
   });
   return { data, isPending, isError };
 }

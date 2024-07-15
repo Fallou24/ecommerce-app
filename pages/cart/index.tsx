@@ -1,11 +1,21 @@
-import CartItem from "@/components/cart/cartItem";
+import CartItems from "@/components/cart/cartItems";
 import { Button } from "@/components/ui/button";
+import { useCurrentUser } from "@/hooks/useUser";
+import { useUserCart } from "@/hooks/useUserCart";
+import { CartItem, Product } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
+interface cartItemType extends CartItem {
+  product: Product;
+}
 
 export default function Cart() {
-  const isCartEmpty = false;
-  if (isCartEmpty) {
+  const { data: user } = useCurrentUser();
+
+  const userId: any = user ? user.id : null;
+  const { data: userCart } = useUserCart(userId);
+
+  if (!userCart?.length) {
     return (
       <main className="max-w-screen-2xl p-4 pt-8">
         <h1 className="text-3xl mb-6 font-bold">Votre panier</h1>
@@ -21,7 +31,7 @@ export default function Cart() {
   return (
     <main className="max-w-screen-2xl p-4 ">
       <h1 className="font-bold text-3xl mb-10">Votre panier</h1>
-      <CartItem />
+      <CartItems userCart={userCart} />
     </main>
   );
 }

@@ -1,17 +1,41 @@
+import { Button } from "@/components/ui/button";
 import { useSingleProduct } from "@/hooks/products";
+import { useCurrentUser } from "@/hooks/useUser";
+import { useUserCart } from "@/hooks/useUserCart";
+import { CartItem } from "@prisma/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function SingleProduct() {
   const router = useRouter();
-  const productId = String(router.query.productId);
-  const { data,isPending } = useSingleProduct(productId);
-  if (isPending) {
-    return <p>Chargement ...</p>
-  }
+  const [quantity, setQuantity] = useState(1);
+  const productId = router.query.productId;
+  const { data, isPending } = useSingleProduct(String(productId));
+  const { data: user } = useCurrentUser();
+  const userId: any = user ? user.id : null;
+  const { data: userCart } = useUserCart(userId);
+
+  const { mutate } = useMutation({
+    mutationFn: (data: {
+      productId: string;
+      quantity: number;
+      userId: string;
+    }) => {
+      return axios.post("api/cart", data);
+    },
+  });
+
+  function handleAddToCart() {
+    mutate({ productId: String(productId), quantity, userId: user!.id });
+  } 
+
+  console.log(userCart);
+  
 
   return (
     <main className="max-w-screen-2xl p-4 ">
@@ -34,15 +58,25 @@ export default function SingleProduct() {
           <p className="mb-2">{data?.description}</p>
           <p className="mb-3 flex flex-row items-center gap-2 content-center">
             <span>Quantity : </span>
-            <button className="border border-black border-opacity-50 p-1">
+            <button
+              onClick={() => setQuantity((q) => q - 1)}
+              className="border border-black border-opacity-50 p-1"
+            >
               <Minus size={15} absoluteStrokeWidth />
             </button>
-            <span>1</span>
-            <button className="border border-black border-opacity-50 p-1">
+            <span>{quantity}</span>
+            <button
+              onClick={() => setQuantity((q) => q + 1)}
+              className="border border-black border-opacity-50 p-1"
+            >
               <Plus size={15} absoluteStrokeWidth />
             </button>
           </p>
-          <button className="bg-black opacity-70 p-3 rounded text-white cursor-pointer">
+
+          <button
+            onClick={handleAddToCart}
+            className="bg-black opacity-70 p-3 rounded text-white cursor-pointer"
+          >
             Add to cart
           </button>
         </div>

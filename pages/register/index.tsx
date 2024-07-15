@@ -4,6 +4,7 @@ import { useCurrentUser } from "@/hooks/useUser";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 type Types = {
@@ -13,6 +14,10 @@ type Types = {
 };
 export default function Register() {
   const { data } = useCurrentUser();
+  const router = useRouter();
+  if (data) {
+    router.push("/");
+  }
   const [message, setMessage] = useState("");
 
   const {

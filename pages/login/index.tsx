@@ -4,6 +4,7 @@ import { useCurrentUser } from "@/hooks/useUser";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -13,7 +14,11 @@ type Types = {
 };
 
 export default function Login() {
-  
+  const {data} = useCurrentUser()
+  const router = useRouter()
+  if (data) {
+    router.push("/")
+  }
   
   const {
     register,

@@ -1,15 +1,12 @@
 import { useProductsStore } from "@/stores/productsStore";
-import { Product } from "@prisma/client";
+import { CartItem, Product } from "@prisma/client";
 import axios from "axios";
 
 export async function getProducts(page: number, searchTerm: string) {
   const data = await axios.get(
     searchTerm
-      ? "http://localhost:3000/api/products?page=" +
-          page +
-          "&search=" +
-          searchTerm
-      : "http://localhost:3000/api/products?page=" + page
+      ? "api/products?page=" + page + "&search=" + searchTerm
+      : "api/products?page=" + page
   );
   const products: { products: Product[]; totalPages: number } = data.data;
 
@@ -17,9 +14,7 @@ export async function getProducts(page: number, searchTerm: string) {
 }
 
 export async function getSingleProduct(productId: string): Promise<Product> {
-  const product = await axios.get(
-    "http://localhost:3000/api/products/" + productId
-  );
+  const product = await axios.get("api/products/" + productId);
   return product.data;
 }
 
@@ -30,18 +25,24 @@ export async function getProductsOfACategory(
 ) {
   const data = await axios.get(
     searchTerm
-      ? "http://localhost:3000/api/products/category/" +
+      ? "api/products/category/" +
           selectedCategory +
           "?page=" +
           page +
           "&search=" +
           searchTerm
-      : "http://localhost:3000/api/products/category/" +
-          selectedCategory +
-          "?page=" +
-          page
+      : "api/products/category/" + selectedCategory + "?page=" + page
   );
   const products: { products: Product[]; totalPages: number } = data.data;
 
   return products;
+}
+
+interface cartItemType extends CartItem {
+  product: Product;
+}
+
+export async function getUserCart(userId: string): Promise<cartItemType[]> {
+  const res = await axios.get("api/cart?userId=" + userId);
+  return res.data;
 }
