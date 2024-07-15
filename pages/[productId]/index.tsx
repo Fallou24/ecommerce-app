@@ -18,8 +18,6 @@ export default function SingleProduct() {
   const [quantity, setQuantity] = useState(1);
   const productId = router.query.productId;
 
- 
-
   const { data, isPending } = useSingleProduct(String(productId));
   const { data: user } = useCurrentUser();
   const userId: any = user ? user.id : null;
@@ -29,6 +27,9 @@ export default function SingleProduct() {
   const isInCart = userCart?.some(
     (data) => data.productId === String(productId)
   );
+  if (!productId) {
+    router.push("/")
+  }
 
   const { mutate } = useMutation({
     mutationFn: (data: {
@@ -46,11 +47,6 @@ export default function SingleProduct() {
 
   function handleAddToCart() {
     mutate({ productId: String(productId), quantity, userId: user!.id });
-  }
-  if (!productId) {
-    return {
-      notFound: true,
-    };
   }
 
   return (
