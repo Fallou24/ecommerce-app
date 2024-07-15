@@ -47,7 +47,7 @@ const queryClient = useQueryClient()
       </TableHeader>
       <TableBody>
         {userCart.map((item) => (
-          <Item item={item} />
+          <Item item={item} key={item.id} />
         ))}
       </TableBody>
       <TableFooter>

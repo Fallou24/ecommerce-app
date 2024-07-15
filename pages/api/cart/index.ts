@@ -63,6 +63,9 @@ export default async function handler(
         include: {
           product: true,
         },
+        orderBy:{
+          createdAt:"desc"
+        }
       });
       res.status(200).json(cart);
     } catch (e) {

@@ -3,13 +3,17 @@ import ProductList from "@/components/home/ProductList";
 import { useProducts, useProductsOfACategory } from "@/hooks/products";
 import { useProductsStore } from "@/stores/productsStore";
 import { Inter } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const selectedCategory = useProductsStore((state) => state.selectedCategory);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setPage(1);
+  }, [selectedCategory]);
 
   const response = selectedCategory
     ? useProductsOfACategory(page)

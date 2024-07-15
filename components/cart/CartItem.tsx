@@ -7,6 +7,7 @@ import { CartItem, Product } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useCurrentUser } from "@/hooks/useUser";
+import toast from "react-hot-toast";
 interface CartItemType extends CartItem {
   product: Product;
 }
@@ -20,6 +21,7 @@ export default function Item({ item }: { item: CartItemType }) {
       return axios.delete("api/cart/" + id);
     },
     onSuccess: () => {
+      toast.success("Le produit est supprimé du panier");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });

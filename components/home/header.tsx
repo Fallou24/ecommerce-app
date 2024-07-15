@@ -1,13 +1,17 @@
+import { useCurrentUser } from "@/hooks/useUser";
+import { useUserCart } from "@/hooks/useUserCart";
 import { useProductsStore } from "@/stores/productsStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Search, ShoppingBag, User } from "lucide-react";
+import { Search, ShoppingBag, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Header() {
   const selectCategory = useProductsStore((state) => state.selectedACategory);
   const setSearchTerm = useProductsStore((state) => state.setSearchTerm);
-
+  const { data: user } = useCurrentUser();
+  const { data } = useUserCart(user!.id);
+  const totalItem = data?.length || 0;
   const categories = [
     "All",
     "electronics",
@@ -43,12 +47,21 @@ export default function Header() {
           />
           <Search size={20} color="#979797" />
         </form>
-        <Link href="/login">
-          <User />
-        </Link>
-        <Link href="/cart">
-          <ShoppingBag />
-        </Link>
+        {!user && (
+          <Link href="/login">
+            <User />
+          </Link>
+        )}
+        {user && (
+          <div className="relative">
+            <p className="font-medium absolute -top-[10px] -right-[10px] text-white rounded-full text-sm w-[20px] h-[20px] text-center bg-[#262D3F]">
+              {totalItem}
+            </p>
+            <Link href="/cart">
+              <ShoppingCart />
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );
