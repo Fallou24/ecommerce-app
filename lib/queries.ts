@@ -5,8 +5,8 @@ import axios from "axios";
 export async function getProducts(page: number, searchTerm: string) {
   const data = await axios.get(
     searchTerm
-      ? "api/products?page=" + page + "&search=" + searchTerm
-      : "api/products?page=" + page
+      ? process.env.BASE_URL+"api/products?page=" + page + "&search=" + searchTerm
+      : process.env.BASE_URL+"api/products?page=" + page
   );
   const products: { products: Product[]; totalPages: number } = data.data;
 
@@ -14,7 +14,7 @@ export async function getProducts(page: number, searchTerm: string) {
 }
 
 export async function getSingleProduct(productId: string): Promise<Product> {
-  const product = await axios.get("api/products/" + productId);
+  const product = await axios.get(process.env.BASE_URL+"api/products/" + productId);
   return product.data;
 }
 
@@ -25,13 +25,13 @@ export async function getProductsOfACategory(
 ) {
   const data = await axios.get(
     searchTerm
-      ? "api/products/category/" +
+      ? process.env.BASE_URL+"api/products/category/" +
           selectedCategory +
           "?page=" +
           page +
           "&search=" +
           searchTerm
-      : "api/products/category/" + selectedCategory + "?page=" + page
+      : process.env.BASE_URL+"api/products/category/" + selectedCategory + "?page=" + page
   );
   const products: { products: Product[]; totalPages: number } = data.data;
 
@@ -43,6 +43,6 @@ interface cartItemType extends CartItem {
 }
 
 export async function getUserCart(userId: string): Promise<cartItemType[]> {
-  const res = await axios.get("api/cart?userId=" + userId);
+  const res = await axios.get(process.env.BASE_URL+"api/cart?userId=" + userId);
   return res.data;
 }
