@@ -10,7 +10,7 @@ export default function Header() {
   const selectCategory = useProductsStore((state) => state.selectedACategory);
   const setSearchTerm = useProductsStore((state) => state.setSearchTerm);
   const { data: user } = useCurrentUser();
-  const { data } = useUserCart(user!.id);
+  const { data } = useUserCart(user?.id!);
   const totalItem = data?.length || 0;
   const categories = [
     "All",
