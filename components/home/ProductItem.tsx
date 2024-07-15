@@ -21,7 +21,7 @@ export default function ProductItem({ product }: { product: Product }) {
           </div>
 
           <h4 className="mt-2 ">{product.title}</h4>
-          <p className="font-medium mt-1">${product.price}</p>
+          <p className="font-medium mt-1 text-sm">${product.price}</p>
         </CardContent>
       </Card>
     </Link>
