@@ -15,10 +15,8 @@ import toast from "react-hot-toast";
 export default function SingleProduct() {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
-  const productId = router.query.productId;
-  if (!productId) {
-    router.push("/")
-  }
+  const productId = router.query.productId || null;
+ 
   const { data, isPending } = useSingleProduct(String(productId));
   const { data: user } = useCurrentUser();
   const userId: any = user ? user.id : null;
