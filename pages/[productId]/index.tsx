@@ -27,9 +27,11 @@ export default function SingleProduct() {
   const isInCart = userCart?.some(
     (data) => data.productId === String(productId)
   );
-  if (!productId) {
-    router.push("/")
-  }
+  useEffect(() => {
+    if (!productId) {
+      router.push("/");
+    }
+  }, []);
 
   const { mutate } = useMutation({
     mutationFn: (data: {

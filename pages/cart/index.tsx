@@ -5,17 +5,19 @@ import { useUserCart } from "@/hooks/useUserCart";
 import { CartItem, Product } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 interface cartItemType extends CartItem {
   product: Product;
 }
 
 export default function Cart() {
   const { data: user } = useCurrentUser();
-  const router = useRouter()
-  if (!user) {
-    router.push("/")
-  }
+  const router = useRouter();
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  },[]);
 
   const userId: any = user ? user.id : null;
   const { data: userCart } = useUserCart(userId);
