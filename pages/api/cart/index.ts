@@ -55,6 +55,9 @@ export default async function handler(
         userId: String(userId),
       },
     });
+    if (!userCart) {
+      res.status(200).json([]);
+    }
     try {
       const cart = await prisma.cartItem.findMany({
         where: {
@@ -63,9 +66,9 @@ export default async function handler(
         include: {
           product: true,
         },
-        orderBy:{
-          createdAt:"desc"
-        }
+        orderBy: {
+          createdAt: "desc",
+        },
       });
       res.status(200).json(cart);
     } catch (e) {
