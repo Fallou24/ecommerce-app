@@ -41,7 +41,7 @@ export default function Header() {
         <form className="border  border-gray-300 flex flex-row items-center px-2 rounded-md">
           <input
             type="search"
-            placeholder="Rechechez des produits"
+            placeholder="Search ..."
             className="text-sm w-64 py-2"
             onChange={(e) => setSearchTerm(e.target.value)}
           />

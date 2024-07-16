@@ -39,9 +39,9 @@ const queryClient = useQueryClient()
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Produit</TableHead>
-          <TableHead>Prix</TableHead>
-          <TableHead className="text-center">Quantité</TableHead>
+          <TableHead>Product</TableHead>
+          <TableHead>Price</TableHead>
+          <TableHead className="text-center">Quantity</TableHead>
           <TableHead className="text-right">Total</TableHead>
         </TableRow>
       </TableHeader>

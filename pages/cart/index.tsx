@@ -25,9 +25,9 @@ export default function Cart() {
   if (!userCart?.length) {
     return (
       <main className="max-w-screen-2xl p-4 pt-8">
-        <h1 className="text-3xl mb-6 font-bold">Votre panier</h1>
+        <h1 className="text-3xl mb-6 font-bold">Your cart</h1>
         <p className="mb-4">
-          Il semble que vous n’ayez encore ajouté aucun article au panier.{" "}
+          It looks like you haven't added any items to the cart yet.
         </p>
         <Button className="bg-black">
           <Link href="/">Explore Products</Link>
@@ -37,7 +37,7 @@ export default function Cart() {
   }
   return (
     <main className="max-w-screen-2xl p-4 ">
-      <h1 className="font-bold text-3xl mb-10">Votre panier</h1>
+      <h1 className="font-bold text-3xl mb-10">Your cart</h1>
       <CartItems userCart={userCart} />
     </main>
   );

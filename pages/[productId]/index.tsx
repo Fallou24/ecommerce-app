@@ -20,8 +20,7 @@ export default function SingleProduct() {
 
   const { data, isPending } = useSingleProduct(String(productId));
   const { data: user } = useCurrentUser();
-  console.log(user);
-  
+
   const userId: any = user ? user.id : null;
   const { data: userCart } = useUserCart(userId);
 
@@ -44,7 +43,7 @@ export default function SingleProduct() {
       return axios.post("api/cart", data);
     },
     onSuccess: () => {
-      toast.success("Le produit est ajouté au panier");
+      toast.success("The product is added to cart");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });

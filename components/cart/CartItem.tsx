@@ -21,7 +21,7 @@ export default function Item({ item }: { item: CartItemType }) {
       return axios.delete("api/cart/" + id);
     },
     onSuccess: () => {
-      toast.success("Le produit est supprimé du panier");
+      toast.success("the product is removed from the cart");
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
@@ -98,9 +98,9 @@ export default function Item({ item }: { item: CartItemType }) {
                 : item.product.title}
             </p>
 
-            <p className="mb-1">Quantité : {item.quantity}</p>
+            <p className="mb-1">Quantity : {item.quantity}</p>
             <button className="underline" onClick={handleDelete}>
-              Supprimer
+              Delete
             </button>
           </div>
         </div>
