@@ -8,6 +8,7 @@ import axios from "axios";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -16,6 +17,7 @@ export default function SingleProduct() {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const productId = router.query.productId;
+
   const { data, isPending } = useSingleProduct(String(productId));
   const { data: user } = useCurrentUser();
   const userId: any = user ? user.id : null;
@@ -25,6 +27,11 @@ export default function SingleProduct() {
   const isInCart = userCart?.some(
     (data) => data.productId === String(productId)
   );
+  useEffect(() => {
+    if (!productId) {
+      router.push("/");
+    }
+  }, []);
 
   const { mutate } = useMutation({
     mutationFn: (data: {

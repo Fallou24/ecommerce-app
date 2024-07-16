@@ -5,7 +5,7 @@ import { useUserCart } from "@/hooks/useUserCart";
 import { CartItem, Product } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 interface cartItemType extends CartItem {
   product: Product;
 }

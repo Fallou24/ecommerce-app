@@ -14,10 +14,12 @@ export default function Home() {
   useEffect(() => {
     setPage(1);
   }, [selectedCategory]);
+  const productsOfACategory = useProductsOfACategory(page)
+  const products = useProducts(page)
 
   const response = selectedCategory
-    ? useProductsOfACategory(page)
-    : useProducts(page);
+    ? productsOfACategory
+    : products;
   const { data, isPending, isPlaceholderData, isFetching } = response;
   const totalPages = data?.totalPages;
   const productsToDisplay = data?.products;

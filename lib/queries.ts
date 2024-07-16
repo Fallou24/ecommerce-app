@@ -1,5 +1,5 @@
 import { useProductsStore } from "@/stores/productsStore";
-import { CartItem, Product } from "@prisma/client";
+import { Cart, CartItem, Product } from "@prisma/client";
 import axios from "axios";
 
 export async function getProducts(page: number, searchTerm: string) {
@@ -39,10 +39,11 @@ export async function getProductsOfACategory(
 }
 
 interface cartItemType extends CartItem {
-  product: Product;
+  products: Product;
 }
 
-export async function getUserCart(userId: string): Promise<cartItemType[]> {
+
+export async function getUserCart(userId: string):Promise<Cart[]> {
   const res = await axios.get("api/cart?userId=" + userId);
   return res.data;
 }
