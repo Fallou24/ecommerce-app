@@ -12,11 +12,13 @@ interface cartItemType extends CartItem {
 
 export default function Cart() {
   const { data: user } = useCurrentUser();
-  const router = useRouter()
-  if (!user) {
-    router.push("/")
-  }
+  const router = useRouter();
 
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, []);
   const userId: any = user ? user.id : null;
   const { data: userCart } = useUserCart(userId);
 
