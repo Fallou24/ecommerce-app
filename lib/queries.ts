@@ -43,7 +43,7 @@ interface cartItemType extends CartItem {
 }
 
 
-export async function getUserCart(userId: string):Promise<Cart> {
+export async function getUserCart(userId: string):Promise<Cart[]> {
   const res = await axios.get("api/cart?userId=" + userId);
   return res.data;
 }
