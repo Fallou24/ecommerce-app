@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
- 
+  env:{
+    BASE_URL:"https://ecommerce-app-beta-five.vercel.app/"
+  },
   images: {
     remotePatterns: [
       {
