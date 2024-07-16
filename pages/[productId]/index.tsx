@@ -20,6 +20,8 @@ export default function SingleProduct() {
 
   const { data, isPending } = useSingleProduct(String(productId));
   const { data: user } = useCurrentUser();
+  console.log(user);
+  
   const userId: any = user ? user.id : null;
   const { data: userCart } = useUserCart(userId);
 

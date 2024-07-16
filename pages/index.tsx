@@ -1,6 +1,7 @@
 import { ProductsPagination } from "@/components/home/Pagination";
 import ProductList from "@/components/home/ProductList";
 import { useProducts, useProductsOfACategory } from "@/hooks/products";
+import { useCurrentUser } from "@/hooks/useUser";
 import { useProductsStore } from "@/stores/productsStore";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
@@ -14,12 +15,10 @@ export default function Home() {
   useEffect(() => {
     setPage(1);
   }, [selectedCategory]);
-  const productsOfACategory = useProductsOfACategory(page)
-  const products = useProducts(page)
+  const productsOfACategory = useProductsOfACategory(page);
+  const products = useProducts(page);
 
-  const response = selectedCategory
-    ? productsOfACategory
-    : products;
+  const response = selectedCategory ? productsOfACategory : products;
   const { data, isPending, isPlaceholderData, isFetching } = response;
   const totalPages = data?.totalPages;
   const productsToDisplay = data?.products;
