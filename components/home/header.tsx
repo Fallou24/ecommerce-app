@@ -2,9 +2,10 @@ import { useCurrentUser } from "@/hooks/useUser";
 import { useUserCart } from "@/hooks/useUserCart";
 import { useProductsStore } from "@/stores/productsStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Search, ShoppingBag, ShoppingCart, User } from "lucide-react";
+import { Menu, Search, ShoppingBag, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { MobileMenu } from "./MobileMenu";
 
 export default function Header() {
   const selectCategory = useProductsStore((state) => state.selectedACategory);
@@ -29,6 +30,7 @@ export default function Header() {
         {categories?.map((category: string, index: any) => (
           <button
             key={index}
+            className="hidden lg:block"
             onClick={() => {
               selectCategory(category === "All" ? "" : category);
             }}
@@ -38,7 +40,7 @@ export default function Header() {
         ))}
       </div>
       <div className="flex items-center gap-8">
-        <form className="border  border-gray-300 flex flex-row items-center px-2 rounded-md">
+        <form className="border hidden  border-gray-300 lg:flex flex-row items-center px-2 rounded-md">
           <input
             type="search"
             placeholder="Search ..."
@@ -52,6 +54,7 @@ export default function Header() {
             <User />
           </Link>
         )}
+        <MobileMenu/>
         {user && (
           <div className="relative">
             <p className="font-medium absolute -top-[10px] -right-[10px] text-white rounded-full text-sm w-[20px] h-[20px] text-center bg-[#262D3F]">

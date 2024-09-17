@@ -40,7 +40,7 @@ export default function Register() {
 
   return (
     <main>
-      <div className="shadow-md w-1/3  p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="shadow-md w-full md:w-1/3  p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <h1 className="text-center mb-4 font-bold text-xl">
           S'inscrire à Store
         </h1>

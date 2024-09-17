@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { useSingleProduct } from "@/hooks/products";
 import { useCurrentUser } from "@/hooks/useUser";
 import { useUserCart } from "@/hooks/useUserCart";
-import { CartItem } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Minus, Plus } from "lucide-react";
@@ -54,9 +53,9 @@ export default function SingleProduct() {
 
   return (
     <main className="max-w-screen-2xl p-4 ">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-col md:flex-row items-center">
         <div
-          className="w-1/2"
+          className="w-full md:w-1/2"
           style={{ position: "relative", height: "400px" }}
         >
           <Image
@@ -67,7 +66,7 @@ export default function SingleProduct() {
             style={{ objectFit: "contain" }}
           />
         </div>
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <h2 className="font-medium text-2xl mb-4">{data?.title}</h2>
           <p className="mb-2">${data?.price}</p>
           <p className="mb-2">{data?.description}</p>

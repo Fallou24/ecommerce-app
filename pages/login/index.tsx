@@ -31,8 +31,8 @@ export default function Login() {
   };
 
   return (
-    <main>
-      <div className="shadow-md w-1/3  p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <main className="mx-4">
+      <div className="shadow-md w-full md:w-1/3  p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <h1 className="text-center mb-4 font-bold text-xl">
           Se connecter à Store
         </h1>
